@@ -11,8 +11,10 @@ import json
 
 # --------------------------------- PASSWORD GENERATOR ------------------------------------------------------------ #
 
-alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
-         "x", "y", "z"]  # lower case alphabet list
+alpha = [
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+]  # lower case alphabet list
 upper_alpha = [letter.upper() for letter in alpha]  # Creating an alphabet list with all capital letters
 nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]  # string number list
 symbols = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "{", "}", "?", "=", "_"]  # symbols list
@@ -27,6 +29,7 @@ def password_generator():  # first password generator
         password += random.choice(upper_alpha)  # add random upper case letter
     scrambled = "".join(random.sample(password, len(password)))
     pyperclip.copy(scrambled)  # copies the password and ready to paste
+    password_entry.delete(0, END)  # replace existing value instead of appending a new password
     password_entry.insert(END, scrambled)  # inserts the password into password Entry box
     play_boxing_bell()
 
@@ -42,6 +45,7 @@ def another_password_generator():  # another password generator
     random.shuffle(pass_code)  # shuffles the combined list
     code = "".join(pass_code)  # creates a string instead of list
     pyperclip.copy(code)  # copies list to allow for paste
+    password_entry.delete(0, END)  # replace existing value instead of appending a new password
     password_entry.insert(END, code)  # inserts the password into the password Entry box
     play_boxing_bell()
 
@@ -92,7 +96,10 @@ def find_password():
         file.close() # close file after search is complete
 
     except FileNotFoundError:
-        messagebox.showinfo(title="Not Found", message=f"File nAmaamed {web} does not exist")
+        messagebox.showinfo(
+            title="Not Found",
+            message="File named data.json does not exist"
+        )
 
 
     else:
